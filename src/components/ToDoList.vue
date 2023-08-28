@@ -180,6 +180,8 @@ header {
 
 .completed {
   text-decoration: line-through;
+  color: #778899;
+  font-weight: 200;
 }
 
 .checkbox {
