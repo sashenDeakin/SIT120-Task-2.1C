@@ -1,4 +1,4 @@
-# SIT120 - Introduction to Responsive Web Apps Credit Task 1
+# SIT120 - Introduction to Responsive Web Apps
 
 ### Credit Task 1
 
