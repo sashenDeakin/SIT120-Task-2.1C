@@ -16,6 +16,7 @@ function addItems() {
       items: todoItem.value,
       status: completed.value,
       hoveredIndex: hoveredIndex,
+      todoTime: new Date().toLocaleString(),
     });
 
     todoItem.value = "";
@@ -48,7 +49,12 @@ function deleteTodo(idFind) {
         <button @click="addItems">Add</button>
       </div>
       <ol class="todo-list">
-        <li v-for="i in todoStore" :key="i.id" class="todo">
+        <li
+          v-for="i in todoStore"
+          :key="i.id"
+          class="todo"
+          :class="{ completedDo: i.status }"
+        >
           <label class="checkbox">
             <input type="checkbox" @click="toggleCompleted(i.id)" />
             <span class="checkbox-custom"></span>
@@ -56,6 +62,10 @@ function deleteTodo(idFind) {
           <span :class="{ completed: i.status }" class="todo-text">{{
             i.items
           }}</span>
+          <span class="current-date-time" v-if="i.status === false">{{
+            i.todoTime
+          }}</span>
+          <span class="completedStatus" v-else>Compleated</span>
           <button class="delete-button" @click="deleteTodo(i.id)">
             Delete
           </button>
@@ -98,7 +108,7 @@ header {
 .add-todo input[type="text"] {
   flex: 1;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #006400;
   border-radius: 8px;
   height: 40px;
   font-size: 25px;
@@ -111,13 +121,14 @@ header {
   border: none;
   cursor: pointer;
   width: 100px;
-  border-radius: 10px;
+  border-radius: 6px;
   font-size: 25px;
 }
 
 .add-todo button:hover {
   background-color: green;
   color: #fff;
+  transform: scale(1.05);
 }
 
 .todo-list {
@@ -126,17 +137,18 @@ header {
   cursor: pointer;
 }
 
-.hovered {
-  background: red;
-}
-
 .todo {
   display: flex;
   align-items: center;
   padding: 10px;
+  background-color: #dbe9fa;
   border: 1px solid #ccc;
   margin-bottom: 10px;
   border-radius: 5px;
+}
+
+.completedDo {
+  background-color: #98ff98;
 }
 
 .todo input[type="checkbox"] {
@@ -151,13 +163,19 @@ header {
 
 .delete-button {
   padding: 6px 12px;
-  background-color: #ff4444;
+  background-color: #ff0000;
   color: #fff;
   border: none;
   cursor: pointer;
   width: 100px;
   height: 40px;
   border-radius: 5px;
+  font-weight: 600;
+}
+
+.delete-button:hover {
+  background-color: #f62817;
+  transform: scale(1.05);
 }
 
 .completed {
@@ -177,7 +195,7 @@ header {
 .checkbox-custom {
   width: 18px;
   height: 18px;
-  border: 2px solid #ccc;
+  border: 2px solid #006400;
   border-radius: 3px;
   margin-right: 10px;
   position: relative;
@@ -198,6 +216,26 @@ header {
 
 .checkbox input[type="checkbox"]:checked + .checkbox-custom::before {
   background-color: #007bff;
+}
+
+.current-date-time {
+  font-size: 18px;
+  color: #333;
+  background-color: #f9f9f9;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-right: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.completedStatus {
+  font-size: 18px;
+  color: #000;
+  background-color: #50c878;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-right: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Media Queries */
